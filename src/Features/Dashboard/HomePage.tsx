@@ -28,7 +28,7 @@ export function HomePage({ onNavigateToCreate, onNavigateToJournals }: HomePageP
     <div className="space-y-8">
       {/* Hero Section */}
       <div className="text-center">
-        <h1 className="text-4xl font-bold mb-2">Welcome to DailyJourna</h1>
+        <h1 className="text-4xl font-bold mb-2">Welcome to Daily Journal</h1>
         <p className="text-lg text-muted-foreground">
           Track your mood and capture your thoughts, one day at a time.
         </p>
