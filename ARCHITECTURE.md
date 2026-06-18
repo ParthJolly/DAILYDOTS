@@ -1,4 +1,4 @@
-# Architecture Guide - Daily Dots
+# Architecture Guide - DailyJournal
 
 ## 🏗️ Clean Architecture Pattern
 
@@ -364,4 +364,4 @@ A: Yes, but replace `JournalService` with Redux store. Components stay same!
 
 ---
 
-Generated for Daily Dots Project
+Generated for DailyJournal Project

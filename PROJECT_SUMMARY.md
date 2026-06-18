@@ -1,4 +1,4 @@
-# 📔 Daily Dots - Project Complete ✅
+# 📔 DailyJournal - Project Complete ✅
 
 A production-ready Daily Journal + Mood Tracker built with modern web technologies.
 

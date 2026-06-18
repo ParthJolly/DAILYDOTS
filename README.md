@@ -1,4 +1,4 @@
-# Daily Dots - Daily Journal with Mood Tracker
+# DailyJournal - Daily Journal with Mood Tracker
 
 A modern, responsive web application for journaling and mood tracking built with **Vite**, **React 19**, **TypeScript**, and **Tailwind CSS**.
 

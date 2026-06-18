@@ -1,4 +1,4 @@
-# Quick Start Guide - Daily Dots
+# Quick Start Guide - DailyJournal
 
 ## 🚀 Get Running in 3 Steps
 

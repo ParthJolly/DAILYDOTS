@@ -1,4 +1,4 @@
-# Daily Dots - Complete Project Structure
+# DailyJournal - Complete Project Structure
 
 ```
 DAILYDOTS/

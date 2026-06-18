@@ -2,7 +2,7 @@
 
 ## Overview
 
-This document confirms that the Daily Dots project has been reviewed and updated to comply with ALL four instruction files:
+This document confirms that the DailyJournal project has been reviewed and updated to comply with ALL four instruction files:
 
 1. ✅ `general.instructions.md`
 2. ✅ `typescript-react.instructions.md`
@@ -325,7 +325,7 @@ AFTER:  'inline-flex items-center justify-center rounded-md whitespace-nowrap te
 
 ✅ **All four instruction files have been reviewed and the codebase is now in full compliance.**
 
-The Daily Dots project follows all engineering best practices, design guidelines, and technical standards specified in the instruction files.
+The DailyJournal project follows all engineering best practices, design guidelines, and technical standards specified in the instruction files.
 
 **Status: Ready for Production** 🚀
 

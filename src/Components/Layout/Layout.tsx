@@ -21,7 +21,7 @@ function Header() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-2xl">📔</span>
-            <h1 className="text-2xl font-bold">Daily Dots</h1>
+            <h1 className="text-2xl font-bold">DailyJournal</h1>
           </div>
           <p className="text-sm text-muted-foreground hidden sm:block">
             Your personal journal & mood tracker
