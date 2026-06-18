@@ -14,39 +14,40 @@
 
 ### 📖 Journal Management
 - ✍️ Create, read, update, and delete journal entries
-- 📅 Date-based entry organization (one entry per day)
-- 🔍 Full-text search across entries
+- 📅 Date-based entry organization
+- 🔍 Full-text search across entries (by title and content)
 - 🏷️ Filter entries by mood
-- 📊 Sort entries by date or mood
-- ⭐ Mark favorite entries
+- 📊 Sort entries by newest, oldest, or alphabetically
+- Real-time character count while editing
 
 ### 🎭 Mood Tracking
-- 6 mood types: Amazing, Happy, Calm, Neutral, Sad, Angry
+- 6 mood types: Amazing 🤩, Happy 😊, Calm 😌, Neutral 😐, Sad 😢, Angry 😠
 - Emoji-based mood selector
 - Mood statistics and distribution
-- Mood history visualization
-- Weekly/monthly mood trends
+- Mood frequency tracking
+- Automatic mood trend calculations
 
 ### 📊 Dashboard
 - Today's entry preview
+- Quick statistics cards (total entries, this month, streak, this week)
 - Recent entries feed
-- Mood statistics
 - Writing streak tracking
-- Quick action buttons
+- Mood distribution overview
+- Quick action buttons for new entries
 
 ### 🎨 User Experience
 - 📱 Fully responsive (mobile, tablet, desktop)
-- 🌙 Dark mode support
-- ⌨️ Keyboard navigation
-- ♿ WCAG accessibility compliance
-- ⚡ Fast and smooth interactions
+- 🌙 Dark mode support (Tailwind CSS)
+- ⌨️ Keyboard accessible
+- ♿ WCAG accessibility considerations
+- ⚡ Instant feedback and smooth interactions
 
 ### 🛠️ Developer Experience
 - TypeScript strict mode enabled
 - Clean, layered architecture
-- Comprehensive service layer
-- Custom React hooks
-- Extensive test coverage
+- Comprehensive service layer abstraction
+- Custom React hooks for state management
+- Vitest unit tests
 - ESLint + Prettier configured
 
 ---
@@ -146,7 +147,7 @@ Custom Hooks (Data Management)
       ↓
 Service Layer (Business Logic)
       ↓
-Data Source (localStorage / Supabase)
+Data Source (localStorage)
 ```
 
 ### Design Principles
@@ -154,7 +155,7 @@ Data Source (localStorage / Supabase)
 - **Separation of Concerns**: UI, state management, and data access are separate
 - **Single Responsibility**: Each component/hook/service has one job
 - **Dependency Inversion**: Components depend on abstractions (hooks), not implementations
-- **Database Agnostic**: Service layer abstraction allows easy migration from localStorage to Supabase
+- **Database Agnostic**: Service layer abstraction allows easy future migration to cloud backends
 
 See [docs/ARCHITECTURE.md](/docs/ARCHITECTURE.md) for detailed architecture documentation.
 
@@ -162,19 +163,25 @@ See [docs/ARCHITECTURE.md](/docs/ARCHITECTURE.md) for detailed architecture docu
 
 ## 💾 Data Storage
 
-Currently, DailyDots uses **localStorage** for persistence:
-- Entries persist in browser local storage
-- No backend required
-- Perfect for local-first applications
+**Current Implementation**: Browser **localStorage**
+- ✅ Entries persist in browser local storage
+- ✅ No backend required
+- ✅ Works offline
+- ✅ Perfect for local-first applications
 
-### Future: Supabase Migration
+**Limitations**:
+- Data is device-specific (not synced across devices)
+- Limited to ~10MB per domain
+- Data cleared if browser storage is cleared
 
-To migrate to Supabase:
+### Future: Supabase Integration
+
+The service layer architecture makes it easy to migrate to Supabase later:
 1. Install Supabase client: `npm install @supabase/supabase-js`
-2. Update `src/Services/JournalService.ts` with Supabase client calls
-3. Components remain unchanged (service layer abstraction)
+2. Update `src/Services/JournalService.ts` with Supabase database calls
+3. Components remain unchanged (service layer abstraction handles the swap)
 
-See [docs/DATABASE.md](/docs/DATABASE.md) for details.
+See [docs/DATABASE.md](/docs/DATABASE.md) for data schema details.
 
 ---
 
@@ -186,7 +193,7 @@ See [docs/DATABASE.md](/docs/DATABASE.md) for details.
 | **Language** | TypeScript | Type safety |
 | **Build Tool** | Vite | Fast development & build |
 | **Styling** | Tailwind CSS v4 | Utility-first CSS |
-| **UI Components** | shadcn/ui | Pre-built components |
+| **Component Styling** | CVA (class-variance-authority) | Variant-based component styling |
 | **Icons** | Lucide React | Icon library |
 | **Date Handling** | date-fns | Date utilities |
 | **Testing** | Vitest + React Testing Library | Unit & component testing |
@@ -198,9 +205,9 @@ See [docs/DATABASE.md](/docs/DATABASE.md) for details.
 
 ### Environment Variables
 
-No environment variables required for basic usage (localStorage mode).
+No environment variables are required for the default localStorage mode.
 
-For Supabase mode, add to `.env.local`:
+When Supabase integration is added in the future, add these to `.env.local`:
 ```env
 VITE_SUPABASE_URL=your-project-url
 VITE_SUPABASE_ANON_KEY=your-anon-key
@@ -212,7 +219,7 @@ See [tailwind.config.js](/tailwind.config.js) for theme customization.
 
 ### TypeScript Configuration
 
-TypeScript strict mode is enabled. See [tsconfig.json](/tsconfig.json).
+TypeScript strict mode is enabled. See [tsconfig.json](/tsconfig.json) for compiler options.
 
 ---
 

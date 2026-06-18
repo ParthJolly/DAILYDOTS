@@ -1,5 +1,7 @@
 # Architecture Guide - DailyJournal
 
+> **Current Implementation**: This project uses **localStorage** for data persistence. The architecture is designed to allow easy migration to cloud backends like Supabase in the future.
+
 ## 🏗️ Clean Architecture Pattern
 
 The app uses a **layered architecture** designed for easy migrations and testing:
@@ -16,10 +18,11 @@ UI Layer (Components)
 
 ### Layers Explained
 
-#### 1. **Data Source Layer** (Currently: localStorage, Future: Supabase)
-- Location: Browser storage
+#### 1. **Data Source Layer** (Current: localStorage)
+- Location: Browser localStorage
 - Abstraction: `JournalService.ts`
-- Can be swapped without touching other layers
+- Can be swapped to Supabase in the future without affecting other layers
+- Current implementation uses JSON serialization for persistence
 
 #### 2. **Service Layer** 
 `src/Services/JournalService.ts`

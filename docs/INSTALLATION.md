@@ -83,11 +83,11 @@ This serves the production build locally for testing.
 
 ### Default Setup (localStorage)
 
-No environment variables required. The app uses browser localStorage by default.
+**No environment variables are required.** The app uses browser localStorage by default for all data persistence.
 
-### Supabase Setup (Future)
+### Future: Supabase Integration
 
-To use Supabase for data persistence, create a `.env.local` file:
+When Supabase integration is added, create a `.env.local` file:
 
 ```env
 VITE_SUPABASE_URL=https://your-project.supabase.co
@@ -129,7 +129,6 @@ Edit `tailwind.config.js` to customize:
 
 Recommended extensions:
 - **ES7+ React/Redux/React-Native snippets** (dsznajder.es7-react-js-snippets)
-- **TypeScript Vue Plugin** (Vue.vscode-vue-language-features)
 - **Tailwind CSS IntelliSense** (bradlc.vscode-tailwindcss)
 - **ESLint** (dbaeumer.vscode-eslint)
 - **Prettier** (esbenp.prettier-vscode)

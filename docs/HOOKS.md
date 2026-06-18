@@ -164,22 +164,14 @@ Hook for computing statistics from journal entries.
 ### Return Type
 
 ```typescript
-interface UseJournalStatsReturn {
+interface JournalStatistics {
   totalEntries: number
-  entriesThisWeek: number
   entriesThisMonth: number
-  entriesThisYear: number
-  
+  entriesThisWeek: number
+  hasEntryToday: boolean
   moodCounts: Record<MoodType, number>
-  mostFrequentMood: MoodType | null
-  favoriteEntry: JournalEntry | null
-  
+  lastEntryDate: string | null
   currentStreak: number
-  longestStreak: number
-  
-  averageMood: number | null
-  totalCharacters: number
-  averageCharsPerEntry: number
 }
 ```
 
@@ -187,21 +179,30 @@ interface UseJournalStatsReturn {
 
 ```tsx
 import { UseJournalStats } from '@/Hooks/UseJournalStats'
+import { UseJournal } from '@/Hooks/UseJournal'
 
 export function DashboardStats() {
-  const {
-    totalEntries,
-    entriesThisWeek,
-    currentStreak,
-    mostFrequentMood
-  } = UseJournalStats()
+  const { entries } = UseJournal()
+  const stats = UseJournalStats(entries)
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-      <StatCard label="Total Entries" value={totalEntries} />
-      <StatCard label="This Week" value={entriesThisWeek} />
-      <StatCard label="Current Streak" value={currentStreak} days />
-      <StatCard label="Most Frequent" value={mostFrequentMood} />
+      <StatCard
+        label="Total Entries"
+        value={stats.totalEntries}
+      />
+      <StatCard
+        label="This Month"
+        value={stats.entriesThisMonth}
+      />
+      <StatCard
+        label="This Week"
+        value={stats.entriesThisWeek}
+      />
+      <StatCard
+        label="Current Streak"
+        value={`${stats.currentStreak} days`}
+      />
     </div>
   )
 }
@@ -211,19 +212,21 @@ export function DashboardStats() {
 
 ```tsx
 import { UseJournalStats } from '@/Hooks/UseJournalStats'
+import { UseJournal } from '@/Hooks/UseJournal'
 import { moodEmojis, moodLabels } from '@/Types/JournalEntry'
 import type { MoodType } from '@/Types/JournalEntry'
 
 export function MoodBreakdown() {
-  const { moodCounts } = UseJournalStats()
+  const { entries } = UseJournal()
+  const stats = UseJournalStats(entries)
 
   return (
     <div>
       <h3>Mood Distribution</h3>
-      {Object.entries(moodCounts).map(([mood, count]: [MoodType, number]) => (
+      {Object.entries(stats.moodCounts).map(([mood, count]: [MoodType, number]) => (
         <div key={mood} className="flex items-center justify-between">
           <span>
-            {moodEmojis[mood]} {moodLabels[mood]}
+            {moodEmojis[mood as MoodType]} {moodLabels[mood as MoodType]}
           </span>
           <span>{count}</span>
         </div>
@@ -237,15 +240,17 @@ export function MoodBreakdown() {
 
 ```tsx
 import { UseJournalStats } from '@/Hooks/UseJournalStats'
+import { UseJournal } from '@/Hooks/UseJournal'
 
 export function StreakWidget() {
-  const { currentStreak, longestStreak } = UseJournalStats()
+  const { entries } = UseJournal()
+  const stats = UseJournalStats(entries)
 
   return (
     <div className="rounded-lg bg-primary p-4 text-primary-foreground">
       <h3 className="text-sm opacity-90">Current Streak</h3>
-      <p className="text-4xl font-bold">{currentStreak}</p>
-      <p className="text-xs opacity-75">Best: {longestStreak}</p>
+      <p className="text-4xl font-bold">{stats.currentStreak}</p>
+      <p className="text-xs opacity-75">Keep it going!</p>
     </div>
   )
 }
@@ -255,53 +260,23 @@ export function StreakWidget() {
 
 ```tsx
 import { UseJournalStats } from '@/Hooks/UseJournalStats'
+import { UseJournal } from '@/Hooks/UseJournal'
 
 export function ActivitySummary() {
-  const {
-    entriesThisWeek,
-    entriesThisMonth,
-    entriesThisYear
-  } = UseJournalStats()
+  const { entries } = UseJournal()
+  const stats = UseJournalStats(entries)
 
   return (
     <div>
       <h3>Writing Activity</h3>
       <ul>
-        <li>This Week: {entriesThisWeek}</li>
-        <li>This Month: {entriesThisMonth}</li>
-        <li>This Year: {entriesThisYear}</li>
+        <li>This Week: {stats.entriesThisWeek}</li>
+        <li>This Month: {stats.entriesThisMonth}</li>
+        <li>Has Entry Today: {stats.hasEntryToday ? 'Yes' : 'No'}</li>
       </ul>
     </div>
   )
 }
-```
-
-### Character Statistics
-
-```tsx
-import { UseJournalStats } from '@/Hooks/UseJournalStats'
-
-export function WritingStats() {
-  const { totalCharacters, averageCharsPerEntry } = UseJournalStats()
-
-  return (
-    <div className="space-y-2">
-      <div>
-        <p className="text-sm text-muted-foreground">Total Words</p>
-        <p className="text-2xl font-bold">
-          {Math.round(totalCharacters / 5)}
-        </p>
-      </div>
-      <div>
-        <p className="text-sm text-muted-foreground">Avg Per Entry</p>
-        <p className="text-xl font-semibold">
-          {Math.round(averageCharsPerEntry / 5)} words
-        </p>
-      </div>
-    </div>
-  )
-}
-```
 
 ---
 
