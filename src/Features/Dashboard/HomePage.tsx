@@ -37,22 +37,22 @@ export function HomePage({ onNavigateToCreate, onNavigateToJournals }: HomePageP
       {/* Quick Stats */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <StatCard
-          icon={<BookOpen className="h-6 w-6" />}
+          icon={<BookOpen className="h-6 w-6" aria-hidden="true" />}
           label="Total Entries"
           value={stats.totalEntries}
         />
         <StatCard
-          icon={<TrendingUp className="h-6 w-6" />}
+          icon={<TrendingUp className="h-6 w-6" aria-hidden="true" />}
           label="This Month"
           value={stats.entriesThisMonth}
         />
         <StatCard
-          icon={<Flame className="h-6 w-6" />}
+          icon={<Flame className="h-6 w-6" aria-hidden="true" />}
           label="Current Streak"
           value={`${stats.currentStreak} days`}
         />
         <StatCard
-          icon={<Edit3 className="h-6 w-6" />}
+          icon={<Edit3 className="h-6 w-6" aria-hidden="true" />}
           label="This Week"
           value={stats.entriesThisWeek}
         />
@@ -65,9 +65,10 @@ export function HomePage({ onNavigateToCreate, onNavigateToJournals }: HomePageP
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  📅 Today's Entry
+                  <span aria-hidden="true">📅</span>
+                  <span>Today's Entry</span>
                   {todayEntry.mood && (
-                    <span className="ml-auto text-2xl">{moodEmojis[todayEntry.mood]}</span>
+                    <span className="ml-auto text-2xl" aria-hidden="true">{moodEmojis[todayEntry.mood]}</span>
                   )}
                 </CardTitle>
               </CardHeader>
@@ -80,7 +81,10 @@ export function HomePage({ onNavigateToCreate, onNavigateToJournals }: HomePageP
                     </div>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground line-clamp-4">
+                <p 
+                  className="text-sm text-muted-foreground line-clamp-4"
+                  aria-label={todayEntry.content.length > 200 ? `${todayEntry.content.substring(0, 100)}... (truncated)` : undefined}
+                >
                   {todayEntry.content}
                 </p>
                 <div className="flex gap-2">
@@ -118,7 +122,7 @@ export function HomePage({ onNavigateToCreate, onNavigateToJournals }: HomePageP
               {Object.values(MoodType).map((mood) => (
                 <div key={mood} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg">{moodEmojis[mood]}</span>
+                    <span className="text-lg" aria-hidden="true">{moodEmojis[mood]}</span>
                     <span className="text-sm text-muted-foreground">
                       {moodLabels[mood]}
                     </span>
@@ -138,8 +142,12 @@ export function HomePage({ onNavigateToCreate, onNavigateToJournals }: HomePageP
         <div>
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-2xl font-bold">Recent Entries</h2>
-            <Button variant="ghost" onClick={onNavigateToJournals}>
-              View All →
+            <Button 
+              variant="ghost" 
+              onClick={onNavigateToJournals}
+              aria-label="View all journal entries"
+            >
+              View All <span aria-hidden="true">→</span>
             </Button>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
@@ -148,20 +156,23 @@ export function HomePage({ onNavigateToCreate, onNavigateToJournals }: HomePageP
                 <CardHeader>
                   <div className="flex items-start justify-between">
                     <div>
-                      <CardTitle className="text-base line-clamp-2">
+                      <h3 className="text-base font-semibold line-clamp-2">
                         {entry.title}
-                      </CardTitle>
+                      </h3>
                       <p className="text-xs text-muted-foreground mt-1">
                         {format(new Date(entry.date), 'MMM d, yyyy')}
                       </p>
                     </div>
                     {entry.mood && (
-                      <span className="text-lg">{moodEmojis[entry.mood]}</span>
+                      <span className="text-lg" aria-hidden="true">{moodEmojis[entry.mood]}</span>
                     )}
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground line-clamp-3">
+                  <p 
+                    className="text-sm text-muted-foreground line-clamp-3"
+                    aria-label={entry.content.length > 150 ? `${entry.content.substring(0, 75)}... (truncated)` : undefined}
+                  >
                     {entry.content}
                   </p>
                 </CardContent>
